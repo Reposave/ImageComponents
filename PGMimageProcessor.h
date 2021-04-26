@@ -4,8 +4,6 @@
 namespace DLMARD001
 	{
 	class PGMimageProcessor{
-
-	std::string filename;
 	
 	int min_size = 0;
 	int max_size = 0;
@@ -17,7 +15,7 @@ namespace DLMARD001
 	
 	public:
 		PGMimageProcessor(); 
-		PGMimageProcessor(min_size, max_size, threshold, filename, outfilename, const std::string filename);
+		PGMimageProcessor(const int min_size, const int max_size, const int threshold, const std::string outfilename, const std::string filename);
 		
 		~PGMimageProcessor();
 		
@@ -27,6 +25,7 @@ namespace DLMARD001
 		PGMimageProcessor& operator=(const PGMimageProcessor& rhs);
 		PGMimageProcessor& operator=(PGMimageProcessor&& rhs); 
 		
+		int getMinSize();
 		/*int extractComponents(unsigned char  threshold, int minValidSize);
 		int  filterComponentsBySize(int minSize, int maxSize);
 		bool writeComponents(const std::string & outFileName);

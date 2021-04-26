@@ -34,3 +34,6 @@
 #ImageFiles
 *.PNG
 *.txt
+
+findcomp
+catch_test
