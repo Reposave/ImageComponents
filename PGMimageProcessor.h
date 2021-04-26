@@ -1,15 +1,23 @@
 #ifndef __PGMIMAGEPROCESSOR__
 #define __PGMIMAGEPROCESSOR__
-
+#include <string>
 namespace DLMARD001
 	{
 	class PGMimageProcessor{
 
 	std::string filename;
 	
+	int min_size = 0;
+	int max_size = 0;
+
+	int threshold = 0;
+
+	std::string filename;
+	std::string outfilename;
+	
 	public:
 		PGMimageProcessor(); 
-		PGMimageProcessor(const std::string filename);
+		PGMimageProcessor(min_size, max_size, threshold, filename, outfilename, const std::string filename);
 		
 		~PGMimageProcessor();
 		

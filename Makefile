@@ -5,7 +5,7 @@ MANDIR=~/CSC3022F/Assignment2/Frames
 
 # Need object files tag.o and tagDriver.o to create exe tagENUM 
 extractor: findcomp.o PGMimageProcessor.o ConnectedComponent.o
-	$(CC) findcomp.o PGMimageProcessor.o ConnectedComponent.o -o driver $(LIBS)
+	$(CC) findcomp.o PGMimageProcessor.o ConnectedComponent.o -o findcomp $(LIBS)
 
 # Implicit pattern rule for compiling object files
 %.o : %.cpp   # $< is the first dependancy and $@ is the target
@@ -16,7 +16,7 @@ extractor: findcomp.o PGMimageProcessor.o ConnectedComponent.o
 # deletes all the object code files
 clean:
 	@rm -f *.o
-	@rm extractor
+	@rm findcomp
 
 clear:
 	rm ~/CSC3022F/Assignment3/Output/*.pgm
