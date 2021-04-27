@@ -1,9 +1,13 @@
 #ifndef __PGMIMAGEPROCESSOR__
 #define __PGMIMAGEPROCESSOR__
 #include <string>
+
 namespace DLMARD001
 	{
 	class PGMimageProcessor{
+	
+	int imageWidth;
+	int imageHeight;
 	
 	int min_size = 0;
 	int max_size = 0;
@@ -12,6 +16,8 @@ namespace DLMARD001
 
 	std::string filename;
 	std::string outfilename;
+	
+	unsigned char ** array = nullptr;
 	
 	public:
 		PGMimageProcessor(); 
@@ -26,6 +32,8 @@ namespace DLMARD001
 		PGMimageProcessor& operator=(PGMimageProcessor&& rhs); 
 		
 		int getMinSize();
+		void BuildArray();
+		int getImageHeight();
 		/*int extractComponents(unsigned char  threshold, int minValidSize);
 		int  filterComponentsBySize(int minSize, int maxSize);
 		bool writeComponents(const std::string & outFileName);

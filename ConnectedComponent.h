@@ -1,6 +1,7 @@
 #ifndef __CONNECTEDComponent__
 #define __CONNECTEDComponent__
-
+#include <vector>
+#include <pair>
 namespace DLMARD001
 	{
 	class ConnectedComponent{
@@ -8,7 +9,7 @@ namespace DLMARD001
 		int pixels;
 		int ID;
 		
-	
+		std::vector<std::pair<int, int>>
 	public: 
 		ConnectedComponent(); 
 		ConnectedComponent(const int pixels, const int ID); 
