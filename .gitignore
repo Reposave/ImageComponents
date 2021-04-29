@@ -34,6 +34,7 @@
 #ImageFiles
 *.PNG
 *.txt
+*.pgm
 
 findcomp
 catch_test

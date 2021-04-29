@@ -4,6 +4,17 @@
 #include "ConnectedComponent.h"
 
 //Testing ConnectedComponent.h
+TEST_CASE("CCBasic Constructor", "[CCBasic Constructor]") {
+	DLMARD001::ConnectedComponent c;
+	DLMARD001::ConnectedComponent d;
+	DLMARD001::ConnectedComponent e;
+	SECTION("RETURN VALUE") {
+		REQUIRE(c.getID() == 0);
+		REQUIRE(d.getID() == 1);
+		REQUIRE(e.getID() == 2);
+	}
+}
+
 //Testing PGMimageProcessor.h.
 TEST_CASE("Basic Constructor", "[Basic Constructor]") {
 	DLMARD001::PGMimageProcessor a;
