@@ -4,11 +4,11 @@ LIBS=-lm       # the libraries we will ref
 MANDIR=~/CSC3022F/Assignment2/Frames
 
 # Need object files tag.o and tagDriver.o to create exe tagENUM 
-extractor: findcomp.o PGMimageProcessor.o ConnectedComponent.o
-	$(CC) findcomp.o PGMimageProcessor.o ConnectedComponent.o -o findcomp.exe $(LIBS)
+extractor: findcomp.o ConnectedComponent.o PGMimageProcessor.o 
+	$(CC) findcomp.o ConnectedComponent.o PGMimageProcessor.o  -o findcomp.exe $(LIBS)
 	
-catch: catch_tests.o PGMimageProcessor.o ConnectedComponent.o
-	$(CC) catch_tests.o PGMimageProcessor.o ConnectedComponent.o -o catch_test.exe $(LIBS)
+catch: catch_tests.o ConnectedComponent.o PGMimageProcessor.o 
+	$(CC) catch_tests.o ConnectedComponent.o PGMimageProcessor.o -o catch_test.exe $(LIBS)
 	
 # Implicit pattern rule for compiling object files
 %.o : %.cpp   # $< is the first dependancy and $@ is the target

@@ -1,7 +1,8 @@
 #ifndef __CONNECTEDComponent__
 #define __CONNECTEDComponent__
 #include <vector>
-//#include <pair>
+#include <utility>
+
 namespace DLMARD001
 	{
 	class ConnectedComponent{
@@ -13,7 +14,6 @@ namespace DLMARD001
 		std::vector<std::pair<int, int>> coord;
 	public: 
 		ConnectedComponent(); 
-		ConnectedComponent(const int x, const int y); 
 		
 		~ConnectedComponent(); 
 		
@@ -24,8 +24,10 @@ namespace DLMARD001
 		ConnectedComponent& operator=(const ConnectedComponent& rhs);
 		ConnectedComponent& operator=(ConnectedComponent&& rhs); 
 		
+		void push(int x, int y);
 		void AssignID();
 		int getID();
+		int getNumOfPixels();
 	};
 }
 #endif

@@ -1,6 +1,7 @@
 #ifndef __PGMIMAGEPROCESSOR__
 #define __PGMIMAGEPROCESSOR__
 #include <string>
+#include "ConnectedComponent.h"
 
 namespace DLMARD001
 	{
@@ -12,7 +13,7 @@ namespace DLMARD001
 	int min_size = 0;
 	int max_size = 0;
 
-	int threshold = 0;
+	unsigned char threshold;
 
 	std::string filename;
 	std::string outfilename;
@@ -21,7 +22,7 @@ namespace DLMARD001
 	
 	public:
 		PGMimageProcessor(); 
-		PGMimageProcessor(const int min_size, const int max_size, const int threshold, const std::string outfilename, const std::string filename);
+		PGMimageProcessor(const std::string outfilename, const std::string filename, const int max_size, const int min_size = 3, const int threshold = 128);
 		
 		~PGMimageProcessor();
 		
@@ -34,8 +35,9 @@ namespace DLMARD001
 		int getMinSize();
 		void BuildArray();
 		int getImageHeight();
-		/*int extractComponents(unsigned char  threshold, int minValidSize);
-		int  filterComponentsBySize(int minSize, int maxSize);
+		int extractComponents(unsigned char  threshold, int minValidSize);
+		void BuildComponent(int row, int col, DLMARD001::ConnectedComponent * c);
+		/*int  filterComponentsBySize(int minSize, int maxSize);
 		bool writeComponents(const std::string & outFileName);
 		int getComponentCount(void) const;
 		int getLargestSize(void) const;

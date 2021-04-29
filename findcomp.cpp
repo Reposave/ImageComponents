@@ -34,7 +34,7 @@ int main (int argc, char *argv[])
     		max_size = std::stoi(arguments[i+2]);
     		i=i+3;	
     	}else if(arguments[i] == "-t"){
-    		threshold = std::stoi(arguments[i+1]);
+    		threshold = (unsigned char) std::stoi(arguments[i+1]);
     		i=i+2;
     	}else if(arguments[i] == "-p"){
     		print_component_data = true;
