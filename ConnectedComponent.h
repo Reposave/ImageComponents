@@ -27,8 +27,8 @@ namespace DLMARD001
 		const std::vector<std::pair<int, int>> & getVectorPairs();
 		void push(int x, int y);
 		void AssignID();
-		int getID();
-		int getNumOfPixels();
+		int getID()const;
+		int getNumOfPixels()const;
 	};
 }
 #endif

@@ -13,14 +13,14 @@ void DLMARD001::ConnectedComponent::AssignID(){
 		
 DLMARD001::ConnectedComponent::~ConnectedComponent(){}
 
-int DLMARD001::ConnectedComponent::getID(){
+int DLMARD001::ConnectedComponent::getID()const{
 	return ID;
 }
 void DLMARD001::ConnectedComponent::push(int x, int y){
 	coord.push_back(std::pair<int,int>(x,y));
 	++pixels;
 }
-int DLMARD001::ConnectedComponent::getNumOfPixels(){
+int DLMARD001::ConnectedComponent::getNumOfPixels()const{
 	return pixels;
 }
 const std::vector<std::pair<int, int>> & DLMARD001::ConnectedComponent::getVectorPairs(){

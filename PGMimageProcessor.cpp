@@ -223,6 +223,10 @@ int DLMARD001::PGMimageProcessor::getSmallestSize(void)const{
 	
 	return smallest;
 }
+
+void DLMARD001::PGMimageProcessor::printComponentData(const ConnectedComponent & theComponent) const{
+	std::cout << theComponent.getID() << "," << theComponent.getNumOfPixels() << std::endl;
+}
 /*int DLMARD001::PGMimageProcessor::filterComponentsBySize(int minSize, int maxSize){
 	for(auto const & i: cc) {
 		if((*i)->getNumOfPixels() < minSize || (*i)->getNumOfPixels() > maxSize){
