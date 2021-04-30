@@ -25,15 +25,15 @@ namespace DLMARD001
 	std::list<std::unique_ptr<DLMARD001::ConnectedComponent*>> cc;
 	
 	public:
-		PGMimageProcessor(); 
-		PGMimageProcessor(const std::string outfilename, const std::string filename, const int max_size, const int min_size = 3, const unsigned char threshold=128);
+		PGMimageProcessor(); //
+		PGMimageProcessor(const std::string outfilename, const std::string filename, const int max_size, const int min_size = 3, const unsigned char threshold=128); //
 		
-		~PGMimageProcessor();
+		~PGMimageProcessor(); //
 		
-		PGMimageProcessor(const PGMimageProcessor& p);
-		PGMimageProcessor(PGMimageProcessor && p);
+		PGMimageProcessor(const PGMimageProcessor& p); //
+		PGMimageProcessor(PGMimageProcessor && p); //
 		
-		PGMimageProcessor& operator=(const PGMimageProcessor& rhs);
+		PGMimageProcessor& operator=(const PGMimageProcessor& rhs); //
 		PGMimageProcessor& operator=(PGMimageProcessor&& rhs); 
 		
 		int getMinSize();

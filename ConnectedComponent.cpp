@@ -6,12 +6,40 @@ int DLMARD001::ConnectedComponent::IDAssign = 0;
 DLMARD001::ConnectedComponent::ConnectedComponent():pixels(0){
 	DLMARD001::ConnectedComponent::AssignID();
 }
+
+DLMARD001::ConnectedComponent::ConnectedComponent(const ConnectedComponent& p): pixels(p.pixels), coord(p.coord){
+	AssignID();
+}
+
+DLMARD001::ConnectedComponent::ConnectedComponent(ConnectedComponent && p): pixels(p.pixels), ID(p.ID),coord(p.coord){}
+
+DLMARD001::ConnectedComponent::ConnectedComponent& operator=(const ConnectedComponent& rhs){
+	if(this != &rhs) //Checks to make that we are not performing a self-assignment
+		{
+			this->pixels = rhs.pixels;
+			this->coord = rhs.coord;
+			this->AssignID();
+		}
+	
+	return *this;
+}
+DLMARD001::ConnectedComponent::ConnectedComponent& operator=(ConnectedComponent&& rhs){
+	if(this != &rhs) //Checks to make that we are not performing a self-assignment
+		{
+			this->pixels = rhs.pixels;
+			this->coord = rhs.coord;
+			this->ID = rhs.ID;
+		}
+	
+	return *this;
+}
+
 void DLMARD001::ConnectedComponent::AssignID(){
 	ID = IDAssign;
 	++IDAssign;
 		}
 		
-DLMARD001::ConnectedComponent::~ConnectedComponent(){}
+DLMARD001::ConnectedComponent::~ConnectedComponent(){} 
 
 int DLMARD001::ConnectedComponent::getID()const{
 	return ID;
