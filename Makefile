@@ -32,3 +32,6 @@ install:
 	
 run:
 	./extractor larger_image.pgm -t 0 10 5000 5000 -s 640 480 -w invert largeinvseq -w none largesequence2
+	
+run1:
+	./findcomp.exe -s 3 100 -t 128 -p -w out.pgm Ugly.pgm

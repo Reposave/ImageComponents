@@ -2,6 +2,7 @@
 #define __PGMIMAGEPROCESSOR__
 #include <string>
 #include "ConnectedComponent.h"
+#include <list>
 
 namespace DLMARD001
 	{
@@ -20,9 +21,11 @@ namespace DLMARD001
 	
 	unsigned char ** array = nullptr;
 	
+	std::list<ConnectedComponent*> cc;
+	
 	public:
 		PGMimageProcessor(); 
-		PGMimageProcessor(const std::string outfilename, const std::string filename, const int max_size, const int min_size = 3, const int threshold = 128);
+		PGMimageProcessor(const std::string outfilename, const std::string filename, const int max_size, const int min_size = 3, const unsigned char threshold=128);
 		
 		~PGMimageProcessor();
 		

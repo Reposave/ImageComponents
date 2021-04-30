@@ -5,7 +5,7 @@
 #include <sstream>
 
 
-DLMARD001::PGMimageProcessor::PGMimageProcessor(): min_size(3), max_size(10000), threshold(128){}
+DLMARD001::PGMimageProcessor::PGMimageProcessor(): min_size(3), max_size(10000), threshold((unsigned char)128){}
 
 DLMARD001::PGMimageProcessor::~PGMimageProcessor(){
 	if(array!=nullptr){
@@ -16,7 +16,7 @@ DLMARD001::PGMimageProcessor::~PGMimageProcessor(){
 	}
 }
 
-DLMARD001::PGMimageProcessor::PGMimageProcessor(const std::string outfilename, const std::string filename,const int max_size,const int min_size,const int threshold): min_size(min_size), max_size(max_size), threshold(threshold), outfilename(outfilename), filename(filename){
+DLMARD001::PGMimageProcessor::PGMimageProcessor(const std::string outfilename, const std::string filename,const int max_size,const int min_size,const unsigned char threshold): min_size(min_size), max_size(max_size), threshold(threshold), outfilename(outfilename), filename(filename){
 
 }
 
@@ -29,7 +29,7 @@ int DLMARD001::PGMimageProcessor::getImageHeight(){
 	return imageHeight;
 }
 void DLMARD001::PGMimageProcessor::BuildArray(){
-
+	
 	int buffsize = 80;
 	
 	//Reading PGM Header info.
@@ -81,8 +81,8 @@ void DLMARD001::PGMimageProcessor::BuildArray(){
 			}
 			
 	infile.close();
-	
-	extractComponents((unsigned char)threshold, min_size); //*removable*//
+	//std::cout << "Beginning Component Extraction";
+	std::cout << extractComponents((unsigned char)threshold, min_size); //*removable*//
 }
 int DLMARD001::PGMimageProcessor::extractComponents(unsigned char threshold, int minValidSize){
 	//find pixel above threshold.
@@ -91,9 +91,12 @@ int DLMARD001::PGMimageProcessor::extractComponents(unsigned char threshold, int
 	for(int row = 0; row < imageHeight; row++){
 		for (int col = 0; col < imageWidth; col++){
 					if(array[row][col] > threshold){
-						++components;
 						DLMARD001::ConnectedComponent* c = new DLMARD001::ConnectedComponent();
-						BuildComponent(row, col, c); //*removable*//
+						BuildComponent(row, col, c); //*removable*
+						if(c->getNumOfPixels()>=minValidSize){
+							cc.push_back(c);
+							++components;
+						}
 					}
 				}
 			}
@@ -105,22 +108,24 @@ void DLMARD001::PGMimageProcessor::BuildComponent(int row, int col, DLMARD001::C
 	c->push(row, col);
 	array[row][col] = (unsigned char)0;
 	
+	
 	if(array[( (row-1) <0 ? 0 : row-1)][col] > threshold){
 		//Check North, don't go below 0 boundary.
+		//std::cout << "North";
 		BuildComponent(row-1,col, c);
 	}
 	
 	if(array[row][( (col+1) > (imageWidth -1) ? imageWidth-1 : col+1)] > threshold){
-		//Check East, don't go below 0 boundary.
+		//std::cout << "East";
 		BuildComponent(row,col+1, c);
 	}
 	
-	if(array[( (row+1) > (imageHeight -1) ? imageHeight-1 : row-1)][col] > threshold){
-		//Check South, don't go below 0 boundary.
+	if(array[( (row+1) > (imageHeight -1) ? imageHeight-1 : row+1)][col] > threshold){
+		//std::cout << "South";
 		BuildComponent(row+1,col, c);
 	}
 	if(array[row][( (col-1) < 0 ? 0 : col-1)] > threshold){
-		//Check West, don't go below 0 boundary.
+		//std::cout << "West";
 		BuildComponent(row,col-1, c);
 	}
 }
