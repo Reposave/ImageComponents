@@ -12,16 +12,16 @@ namespace DLMARD001
 		
 		std::vector<std::pair<int, int>> coord;
 	public: 
-		ConnectedComponent(); //
+		ConnectedComponent(); 
 		
-		~ConnectedComponent(); //
+		~ConnectedComponent();
 		
 		
-		ConnectedComponent(const ConnectedComponent& p); //
-		ConnectedComponent(ConnectedComponent && p); //
+		ConnectedComponent(const ConnectedComponent& p); 
+		ConnectedComponent(ConnectedComponent && p);
 		
-		ConnectedComponent& operator=(const ConnectedComponent& rhs); //
-		ConnectedComponent& operator=(ConnectedComponent&& rhs); //
+		ConnectedComponent& operator=(const ConnectedComponent& rhs);
+		ConnectedComponent& operator=(ConnectedComponent&& rhs);
 		
 		const std::vector<std::pair<int, int>> & getVectorPairs();
 		void push(int x, int y);

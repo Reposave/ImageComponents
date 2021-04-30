@@ -126,7 +126,6 @@ void DLMARD001::PGMimageProcessor::BuildArray(){
 }
 int DLMARD001::PGMimageProcessor::extractComponents(unsigned char threshold, int minValidSize){
 	//find pixel above threshold.
-	//Is there ever a need to check north.
 	int components = 0;
 	for(int row = 0; row < imageHeight; row++){
 		for (int col = 0; col < imageWidth; col++){
