@@ -3,6 +3,7 @@
 #include <string>
 #include "ConnectedComponent.h"
 #include <list>
+#include <memory>
 
 namespace DLMARD001
 	{
@@ -21,7 +22,7 @@ namespace DLMARD001
 	
 	unsigned char ** array = nullptr;
 	
-	std::list<ConnectedComponent*> cc;
+	std::list<std::unique_ptr<DLMARD001::ConnectedComponent*>> cc;
 	
 	public:
 		PGMimageProcessor(); 
@@ -40,8 +41,8 @@ namespace DLMARD001
 		int getImageHeight();
 		int extractComponents(unsigned char  threshold, int minValidSize);
 		void BuildComponent(int row, int col, DLMARD001::ConnectedComponent * c);
-		/*int  filterComponentsBySize(int minSize, int maxSize);
-		bool writeComponents(const std::string & outFileName);
+		int  filterComponentsBySize(int minSize, int maxSize);
+		/*bool writeComponents(const std::string & outFileName);
 		int getComponentCount(void) const;
 		int getLargestSize(void) const;
 		int getSmallestSize(void) const;

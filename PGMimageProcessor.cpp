@@ -82,7 +82,8 @@ void DLMARD001::PGMimageProcessor::BuildArray(){
 			
 	infile.close();
 	//std::cout << "Beginning Component Extraction";
-	std::cout << extractComponents((unsigned char)threshold, min_size); //*removable*//
+	std::cout << extractComponents((unsigned char)threshold, min_size); //*removable*
+	std::cout << filterComponentsBySize(3, 5); //*removable*
 }
 int DLMARD001::PGMimageProcessor::extractComponents(unsigned char threshold, int minValidSize){
 	//find pixel above threshold.
@@ -94,7 +95,7 @@ int DLMARD001::PGMimageProcessor::extractComponents(unsigned char threshold, int
 						DLMARD001::ConnectedComponent* c = new DLMARD001::ConnectedComponent();
 						BuildComponent(row, col, c); //*removable*
 						if(c->getNumOfPixels()>=minValidSize){
-							cc.push_back(c);
+							cc.push_back(std::make_unique<DLMARD001::ConnectedComponent*>(c));
 							++components;
 						}
 					}
@@ -129,3 +130,21 @@ void DLMARD001::PGMimageProcessor::BuildComponent(int row, int col, DLMARD001::C
 		BuildComponent(row,col-1, c);
 	}
 }
+
+int DLMARD001::PGMimageProcessor::filterComponentsBySize(int minSize, int maxSize){
+	for(std::list<std::unique_ptr<DLMARD001::ConnectedComponent*>>::iterator i = cc.begin(); i != cc.end(); ++i) {
+		if((**i)->getNumOfPixels() < minSize || (**i)->getNumOfPixels() > maxSize){
+			i = cc.erase(i);
+		}
+	}
+	return cc.size();
+}
+
+/*int DLMARD001::PGMimageProcessor::filterComponentsBySize(int minSize, int maxSize){
+	for(auto const & i: cc) {
+		if((*i)->getNumOfPixels() < minSize || (*i)->getNumOfPixels() > maxSize){
+			cc.erase(i);
+		}
+	}
+	return cc.size();
+}*/
