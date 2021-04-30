@@ -197,7 +197,32 @@ void DLMARD001::PGMimageProcessor::ExportImage(const std::string & filename){
 int DLMARD001::PGMimageProcessor::getComponentCount(void) const{
 	return cc.size();
 }
-
+int DLMARD001::PGMimageProcessor::getLargestSize(void)const{
+	int greatest = -1;
+	
+	for(std::list<std::unique_ptr<DLMARD001::ConnectedComponent*>>::const_iterator i = cc.begin(); i != cc.end(); ++i) {
+		if((**i)->getNumOfPixels() > greatest){
+			greatest = (**i)->getNumOfPixels();
+		}
+	}
+	
+	return greatest;
+}
+int DLMARD001::PGMimageProcessor::getSmallestSize(void)const{
+	int smallest = -1;
+	
+	for(std::list<std::unique_ptr<DLMARD001::ConnectedComponent*>>::const_iterator i = cc.begin(); i != cc.end(); ++i) {
+	
+		if(smallest == -1){
+			smallest = (**i)->getNumOfPixels();
+		}
+		else if((**i)->getNumOfPixels() < smallest){
+			smallest = (**i)->getNumOfPixels();
+		}
+	}
+	
+	return smallest;
+}
 /*int DLMARD001::PGMimageProcessor::filterComponentsBySize(int minSize, int maxSize){
 	for(auto const & i: cc) {
 		if((*i)->getNumOfPixels() < minSize || (*i)->getNumOfPixels() > maxSize){
