@@ -44,8 +44,8 @@ namespace DLMARD001
 		int  filterComponentsBySize(int minSize, int maxSize);
 		bool writeComponents(const std::string & outFileName);
 		void ExportImage(const std::string & filename);
-		/*int getComponentCount(void) const;
-		int getLargestSize(void) const;
+		int getComponentCount(void) const;
+		/*int getLargestSize(void) const;
 		int getSmallestSize(void) const;
 		void printComponentData(const ConnectedComponent & theComponent) const;*/
 	};

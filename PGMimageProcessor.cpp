@@ -81,8 +81,6 @@ void DLMARD001::PGMimageProcessor::BuildArray(){
 			
 	infile.close();
 	
-	ExportImage("before.pgm");
-	
 	//std::cout << "Beginning Component Extraction";
 	std::cout << extractComponents((unsigned char)threshold, min_size) << std::endl; //*removable*
 	//std::cout << filterComponentsBySize(3, 5); //*removable*
@@ -196,6 +194,10 @@ void DLMARD001::PGMimageProcessor::ExportImage(const std::string & filename){
     }
 
 }
+int DLMARD001::PGMimageProcessor::getComponentCount(void) const{
+	return cc.size();
+}
+
 /*int DLMARD001::PGMimageProcessor::filterComponentsBySize(int minSize, int maxSize){
 	for(auto const & i: cc) {
 		if((*i)->getNumOfPixels() < minSize || (*i)->getNumOfPixels() > maxSize){

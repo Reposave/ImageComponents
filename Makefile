@@ -36,7 +36,7 @@ run:
 run1:
 	./findcomp.exe -s 3 100 -t 128 -p -w out.pgm Ugly.pgm
 	
-run2:
+runError:
 	./findcomp.exe -s 3 100 -t 20 -p -w out.pgm Ugly.pgm
 	
 run3:
@@ -49,4 +49,6 @@ run5:
 	./findcomp.exe -s 3 100 -t 100 -p -w out.pgm sloan_image.pgm
 run6:
 	./findcomp.exe -s 3 100 -t 200 -p -w out.pgm car.pgm
+run7:
+	./findcomp.exe -s 3 100 -t 255 -p -w out3.pgm soldier.pgm
 	
