@@ -30,7 +30,7 @@ int DLMARD001::PGMimageProcessor::getImageHeight(){
 }
 void DLMARD001::PGMimageProcessor::BuildArray(){
 	
-	int buffsize = 80;
+	//int buffsize = 80;
 	
 	//Reading PGM Header info.
 	std::string line;
@@ -38,8 +38,7 @@ void DLMARD001::PGMimageProcessor::BuildArray(){
 	
    	std::ifstream infile("Images/"+filename,std::ios_base::binary);
 	std::stringstream ss;
-	
-	char buff[buffsize];
+	//char buff[buffsize];
 	
 	while(line.compare("255")!=0){ //Iterate through the non-binary data.	
 		previous = line;
@@ -48,7 +47,7 @@ void DLMARD001::PGMimageProcessor::BuildArray(){
 		//std::cout << line << std::endl;
 	}
 	
-	getline(infile, line);//Go to next line with Binary data.
+	//getline(infile, line);//Go to next line with Binary data.
 
 	//std::cout << previous << std::endl;
 	
@@ -81,10 +80,13 @@ void DLMARD001::PGMimageProcessor::BuildArray(){
 			}
 			
 	infile.close();
+	
+	ExportImage("before.pgm");
+	
 	//std::cout << "Beginning Component Extraction";
-	std::cout << extractComponents((unsigned char)threshold, min_size); //*removable*
+	std::cout << extractComponents((unsigned char)threshold, min_size) << std::endl; //*removable*
 	//std::cout << filterComponentsBySize(3, 5); //*removable*
-	std::cout << writeComponents(outfilename); //*removable*
+	std::cout << writeComponents(outfilename) << std::endl; //*removable*
 }
 int DLMARD001::PGMimageProcessor::extractComponents(unsigned char threshold, int minValidSize){
 	//find pixel above threshold.

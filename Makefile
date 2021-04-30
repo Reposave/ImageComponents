@@ -35,3 +35,18 @@ run:
 	
 run1:
 	./findcomp.exe -s 3 100 -t 128 -p -w out.pgm Ugly.pgm
+	
+run2:
+	./findcomp.exe -s 3 100 -t 20 -p -w out.pgm Ugly.pgm
+	
+run3:
+	./findcomp.exe -s 3 100 -t 100 -p -w out.pgm Ugly.pgm
+	
+run4:
+	./findcomp.exe -s 3 100 -t 100 -p -w out.pgm knight.pgm
+	
+run5:
+	./findcomp.exe -s 3 100 -t 100 -p -w out.pgm sloan_image.pgm
+run6:
+	./findcomp.exe -s 3 100 -t 200 -p -w out.pgm car.pgm
+	
