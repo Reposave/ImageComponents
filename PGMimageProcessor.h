@@ -48,6 +48,7 @@ namespace DLMARD001
 		int getLargestSize(void)const;
 		int getSmallestSize(void)const;
 		void printComponentData(const ConnectedComponent & theComponent) const;
+		void printAll()const;
 	};
 }
 #endif

@@ -48,5 +48,16 @@ int main (int argc, char *argv[])
   	DLMARD001::PGMimageProcessor a(outfilename, filename,min_size,max_size, threshold);
   	a.BuildArray();
   	
+  	if(print_component_data){
+  		std::cout << "Number of Components: ";
+  		std::cout << a.getComponentCount() << std::endl;
+  		std::cout << "Number of pixels in smallest component: ";
+  		std::cout << a.getSmallestSize() << std::endl;
+  		std::cout << "Number of pixels in Largest component: ";
+  		std::cout << a.getLargestSize() << std::endl;
+  		std::cout<<"Printing Components:"<<std::endl;
+  		a.printAll();
+  	}
+  	
   	
 }

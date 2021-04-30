@@ -7,13 +7,13 @@ DLMARD001::ConnectedComponent::ConnectedComponent():pixels(0){
 	DLMARD001::ConnectedComponent::AssignID();
 }
 
-DLMARD001::ConnectedComponent::ConnectedComponent(const ConnectedComponent& p): pixels(p.pixels), coord(p.coord){
-	AssignID();
+DLMARD001::ConnectedComponent::ConnectedComponent(const DLMARD001::ConnectedComponent& p): pixels(p.pixels), coord(p.coord){
+	this->AssignID();
 }
 
-DLMARD001::ConnectedComponent::ConnectedComponent(ConnectedComponent && p): pixels(p.pixels), ID(p.ID),coord(p.coord){}
+DLMARD001::ConnectedComponent::ConnectedComponent(DLMARD001::ConnectedComponent && p): pixels(p.pixels), ID(p.ID),coord(p.coord){}
 
-DLMARD001::ConnectedComponent::ConnectedComponent& operator=(const ConnectedComponent& rhs){
+DLMARD001::ConnectedComponent& DLMARD001::ConnectedComponent::operator=(const DLMARD001::ConnectedComponent& rhs){
 	if(this != &rhs) //Checks to make that we are not performing a self-assignment
 		{
 			this->pixels = rhs.pixels;
@@ -23,7 +23,7 @@ DLMARD001::ConnectedComponent::ConnectedComponent& operator=(const ConnectedComp
 	
 	return *this;
 }
-DLMARD001::ConnectedComponent::ConnectedComponent& operator=(ConnectedComponent&& rhs){
+DLMARD001::ConnectedComponent& DLMARD001::ConnectedComponent::operator=(DLMARD001::ConnectedComponent&& rhs){
 	if(this != &rhs) //Checks to make that we are not performing a self-assignment
 		{
 			this->pixels = rhs.pixels;

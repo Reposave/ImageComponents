@@ -51,4 +51,6 @@ run6:
 	./findcomp.exe -s 3 100 -t 200 -p -w out.pgm car.pgm
 run7:
 	./findcomp.exe -s 3 100 -t 255 -p -w out3.pgm soldier.pgm
+noprint:
+	./findcomp.exe -s 3 100 -t 120 -w out3.pgm soldier.pgm
 	

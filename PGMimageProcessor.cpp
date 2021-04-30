@@ -19,15 +19,15 @@ DLMARD001::PGMimageProcessor::~PGMimageProcessor(){
 DLMARD001::PGMimageProcessor::PGMimageProcessor(const std::string outfilename, const std::string filename,const int max_size,const int min_size,const unsigned char threshold): min_size(min_size), max_size(max_size), threshold(threshold), outfilename(outfilename), filename(filename){
 
 }
-DLMARD001::PGMimageProcessor::PGMimageProcessor(PGMimageProcessor && p):imageWidth(p.imageWidth),imageHeight(p.imageHeight),min_size(p.min_size),max_size(p.max_size),threshold(p.threshold), filename(p.filename),outfilename(p.outfilename),cc(p.cc),array(p.array){
+DLMARD001::PGMimageProcessor::PGMimageProcessor(DLMARD001::PGMimageProcessor && p):imageWidth(p.imageWidth),imageHeight(p.imageHeight),min_size(p.min_size),max_size(p.max_size),threshold(p.threshold), filename(p.filename),outfilename(p.outfilename),array(p.array){
 	p.array = nullptr;
 }
 
-DLMARD001::PGMimageProcessor::PGMimageProcessor(const PGMimageProcessor& p):imageWidth(p.imageWidth),imageHeight(p.imageHeight),min_size(p.min_size),max_size(p.max_size),threshold(p.threshold), filename(p.filename),outfilename(p.outfilename),cc(p.cc){
+DLMARD001::PGMimageProcessor::PGMimageProcessor(const DLMARD001::PGMimageProcessor& p):imageWidth(p.imageWidth),imageHeight(p.imageHeight),min_size(p.min_size),max_size(p.max_size),threshold(p.threshold), filename(p.filename),outfilename(p.outfilename){
 	this->BuildArray();
 }
 
-PGMimageProcessor& operator=(const PGMimageProcessor& rhs){
+DLMARD001::PGMimageProcessor& DLMARD001::PGMimageProcessor::operator=(const DLMARD001::PGMimageProcessor& rhs){
 	if(this != &rhs) //Checks to make that we are not performing a self-assignment
 		{
 			this->imageWidth = rhs.imageWidth;
@@ -37,12 +37,11 @@ PGMimageProcessor& operator=(const PGMimageProcessor& rhs){
 			this->threshold = rhs.threshold;
 			this->filename = rhs.filename;
 			this->outfilename = rhs.outfilename;
-			this->cc = rhs.cc
 		}
-	
+	this->BuildArray();
 	return *this;
 }
-PGMimageProcessor& operator=(const PGMimageProcessor&& rhs){
+DLMARD001::PGMimageProcessor& DLMARD001::PGMimageProcessor::operator=( DLMARD001::PGMimageProcessor&& rhs){
 	if(this != &rhs) //Checks to make that we are not performing a self-assignment
 		{
 			this->imageWidth = rhs.imageWidth;
@@ -52,7 +51,6 @@ PGMimageProcessor& operator=(const PGMimageProcessor&& rhs){
 			this->threshold = rhs.threshold;
 			this->filename = rhs.filename;
 			this->outfilename = rhs.outfilename;
-			this->cc = rhs.cc;
 			this->array = rhs.array;
 			rhs.array = nullptr;
 		}
@@ -122,9 +120,9 @@ void DLMARD001::PGMimageProcessor::BuildArray(){
 	infile.close();
 	
 	//std::cout << "Beginning Component Extraction";
-	std::cout << extractComponents((unsigned char)threshold, min_size) << std::endl; //*removable*
+	extractComponents((unsigned char)threshold, min_size); //*removable*
 	//std::cout << filterComponentsBySize(3, 5); //*removable*
-	std::cout << writeComponents(outfilename) << std::endl; //*removable*
+	writeComponents(outfilename);//*removable*
 }
 int DLMARD001::PGMimageProcessor::extractComponents(unsigned char threshold, int minValidSize){
 	//find pixel above threshold.
@@ -267,6 +265,13 @@ int DLMARD001::PGMimageProcessor::getSmallestSize(void)const{
 void DLMARD001::PGMimageProcessor::printComponentData(const ConnectedComponent & theComponent) const{
 	std::cout << theComponent.getID() << "," << theComponent.getNumOfPixels() << std::endl;
 }
+
+void DLMARD001::PGMimageProcessor::printAll()const{
+	for(std::list<std::unique_ptr<DLMARD001::ConnectedComponent*>>::const_iterator i = cc.begin(); i != cc.end(); ++i) {
+			//printComponentData(&i);
+			std::cout << (**i)->getID() << "," << (**i)->getNumOfPixels() << std::endl;
+		}
+	}
 /*int DLMARD001::PGMimageProcessor::filterComponentsBySize(int minSize, int maxSize){
 	for(auto const & i: cc) {
 		if((*i)->getNumOfPixels() < minSize || (*i)->getNumOfPixels() > maxSize){

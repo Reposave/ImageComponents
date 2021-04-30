@@ -6,7 +6,6 @@
 namespace DLMARD001
 	{
 	class ConnectedComponent{
-	private:
 		static int IDAssign;
 		int pixels;
 		int ID;
