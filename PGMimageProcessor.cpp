@@ -83,7 +83,8 @@ void DLMARD001::PGMimageProcessor::BuildArray(){
 	infile.close();
 	//std::cout << "Beginning Component Extraction";
 	std::cout << extractComponents((unsigned char)threshold, min_size); //*removable*
-	std::cout << filterComponentsBySize(3, 5); //*removable*
+	//std::cout << filterComponentsBySize(3, 5); //*removable*
+	std::cout << writeComponents(outfilename); //*removable*
 }
 int DLMARD001::PGMimageProcessor::extractComponents(unsigned char threshold, int minValidSize){
 	//find pixel above threshold.
@@ -109,25 +110,30 @@ void DLMARD001::PGMimageProcessor::BuildComponent(int row, int col, DLMARD001::C
 	c->push(row, col);
 	array[row][col] = (unsigned char)0;
 	
-	
-	if(array[( (row-1) <0 ? 0 : row-1)][col] > threshold){
-		//Check North, don't go below 0 boundary.
-		//std::cout << "North";
-		BuildComponent(row-1,col, c);
+	if(row-1>=0){
+		if(array[row-1][col] > threshold){
+			//Check North, don't go below 0 boundary.
+			//std::cout << "North";
+			BuildComponent(row-1,col, c);
+		}
 	}
-	
-	if(array[row][( (col+1) > (imageWidth -1) ? imageWidth-1 : col+1)] > threshold){
-		//std::cout << "East";
-		BuildComponent(row,col+1, c);
+	if(col+1 <= imageWidth-1){
+		if(array[row][col+1] > threshold){
+			//std::cout << "East";
+			BuildComponent(row,col+1, c);
+		}
 	}
-	
-	if(array[( (row+1) > (imageHeight -1) ? imageHeight-1 : row+1)][col] > threshold){
-		//std::cout << "South";
-		BuildComponent(row+1,col, c);
+	if(row+1<= imageHeight-1){
+		if(array[row+1][col] > threshold){
+			//std::cout << "South";
+			BuildComponent(row+1,col, c);
+		}
 	}
-	if(array[row][( (col-1) < 0 ? 0 : col-1)] > threshold){
-		//std::cout << "West";
-		BuildComponent(row,col-1, c);
+	if(col-1>=0){
+		if(array[row][col-1] > threshold){
+			//std::cout << "West";
+			BuildComponent(row,col-1, c);
+		}
 	}
 }
 
@@ -140,6 +146,54 @@ int DLMARD001::PGMimageProcessor::filterComponentsBySize(int minSize, int maxSiz
 	return cc.size();
 }
 
+bool DLMARD001::PGMimageProcessor::writeComponents(const std::string & outFileName){
+	int numprinted = 0;
+	int componentsizes = 0;
+	for(int row = 0; row < imageHeight; row++){
+		for (int col = 0; col < imageWidth; col++){
+				//ss >> array[row][col];
+				array[row][col] =(unsigned char) 0;
+				}
+			}
+			
+	for(std::list<std::unique_ptr<DLMARD001::ConnectedComponent*>>::iterator i = cc.begin(); i != cc.end(); ++i) {
+		componentsizes+=(**i)->getNumOfPixels();
+		
+		std::vector<std::pair<int,int>> a;
+		a = (**i)->getVectorPairs();
+		for(std::vector<std::pair<int, int>>::iterator j = a.begin(); j != a.end(); ++j) {
+			++numprinted;
+			array[j->first][j->second] = (unsigned char)255;
+		}
+	}
+	
+	ExportImage(outFileName);
+	
+	if(numprinted == componentsizes){
+		return true;
+	}
+	return false;
+}
+
+void DLMARD001::PGMimageProcessor::ExportImage(const std::string & filename){
+	FILE* outfile;
+    
+    std::string out = "Output/"+filename;
+    outfile = fopen(out.c_str(), "wb");
+    
+    fprintf(outfile, "P5\n"); 
+    fprintf(outfile,"# Created using PGMimageProcessor program.\n");
+    fprintf(outfile, "%d %d\n", imageWidth, imageHeight); 
+    fprintf(outfile, "255\n"); 
+
+    
+  for(int row = 0; row < imageHeight; row++) {
+    for(int col = 0; col < imageWidth; col++) {
+    		fwrite(&array[row][col], 1,1,outfile);
+      }
+    }
+
+}
 /*int DLMARD001::PGMimageProcessor::filterComponentsBySize(int minSize, int maxSize){
 	for(auto const & i: cc) {
 		if((*i)->getNumOfPixels() < minSize || (*i)->getNumOfPixels() > maxSize){

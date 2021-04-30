@@ -23,3 +23,6 @@ void DLMARD001::ConnectedComponent::push(int x, int y){
 int DLMARD001::ConnectedComponent::getNumOfPixels(){
 	return pixels;
 }
+const std::vector<std::pair<int, int>> & DLMARD001::ConnectedComponent::getVectorPairs(){
+	return coord;
+}

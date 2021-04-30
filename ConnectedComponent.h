@@ -24,6 +24,7 @@ namespace DLMARD001
 		ConnectedComponent& operator=(const ConnectedComponent& rhs);
 		ConnectedComponent& operator=(ConnectedComponent&& rhs); 
 		
+		const std::vector<std::pair<int, int>> & getVectorPairs();
 		void push(int x, int y);
 		void AssignID();
 		int getID();
